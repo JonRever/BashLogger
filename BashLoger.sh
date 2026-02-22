@@ -2,6 +2,7 @@
 
 logpath="$1"
 mark="$2"
+LogLevel="$3"
 
 if [ -z "$logpath" ]
 then
@@ -35,7 +36,6 @@ Log()
     local severity
     local text
     local PrintLog
-    local LogLevel
 
     timemark="$(date +'%d.%m.%Y %H:%M')"
     
