@@ -1,21 +1,24 @@
 # shellcheck shell=bash
 
+logpath="$1"
+mark="$2"
+
 Log()
 {
 	local timemark
-    local Prameter="$1"
+    local Parameter="$1"
 	local severity   # Severity level of the current message (ERROR, WARNING, INFO, DEBUG)
 	local text        # Text of the message # Send log to Telegram
     local severity
     local text
     local PrintLog
-    local logpath=
+    local LogLevel
 
     timemark="$(date +'%d.%m.%Y %H:%M')"
     
-	while [ -n "$Prameter" ]
+	while [ -n "$Parameter" ]
 	do	
-		case "$1" in
+		case "$Parameter" in
 			-e)
 				severity='ERROR'
 				;;
@@ -32,11 +35,11 @@ Log()
 				PrintLog=1
 				;;
 			--silent)
-				#PrintLog=0
+				PrintLog=0
 				#SendLogToTg=0
 				;;
 			*)
-				text="$1"
+				text="$Parameter"
 				;;
 		esac
 		shift
