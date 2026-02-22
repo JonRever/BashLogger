@@ -3,6 +3,29 @@
 logpath="$1"
 mark="$2"
 
+if [ -z "$logpath" ]
+then
+    echo "Error: logpath is not set"
+    exit 1
+fi
+
+if [ -z "$mark" ]
+then
+    echo "Error: mark is not set"
+    exit 1
+fi
+
+if [ ! -d "$(dirname "$logpath")" ]
+then
+    echo "Error: directory $(dirname "$logpath") does not exist"
+    exit 1
+fi
+
+if [ -f "$logpath" ]
+then
+    touch "$logpath"
+fi
+
 Log()
 {
 	local timemark
