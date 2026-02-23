@@ -7,22 +7,22 @@ LogLevel="$3"
 if [ -z "$logpath" ]
 then
     echo "Error: logpath is not set"
-    exit 1
+    return 1
 fi
 
 if [ -z "$mark" ]
 then
     echo "Error: mark is not set"
-    exit 1
+    return 1
 fi
 
 if [ ! -d "$(dirname "$logpath")" ]
 then
     echo "Error: directory $(dirname "$logpath") does not exist"
-    exit 1
+    return 1
 fi
 
-if [ -f "$logpath" ]
+if [ ! -f "$logpath" ]
 then
     touch "$logpath"
 fi
@@ -30,18 +30,16 @@ fi
 Log()
 {
 	local timemark
-    local Parameter="$1"
 	local severity   # Severity level of the current message (ERROR, WARNING, INFO, DEBUG)
 	local text        # Text of the message # Send log to Telegram
     local severity
-    local text
     local PrintLog
 
     timemark="$(date +'%d.%m.%Y %H:%M')"
     
-	while [ -n "$Parameter" ]
+	while [ -n "$1" ]
 	do	
-		case "$Parameter" in
+		case "$1" in
 			-e)
 				severity='ERROR'
 				;;
@@ -59,10 +57,9 @@ Log()
 				;;
 			--silent)
 				PrintLog=0
-				#SendLogToTg=0
 				;;
 			*)
-				text="$Parameter"
+				text="$1"
 				;;
 		esac
 		shift
