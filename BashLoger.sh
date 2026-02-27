@@ -108,6 +108,6 @@ Log()
 
     if [ "$PrintLog" == "1" ]
     then
-        echo "${timemark} ${mark} ${severity}: ${text}"
+        echo ":::${text}"
     fi
 }
